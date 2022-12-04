@@ -1,21 +1,29 @@
 fun main() {
 
-    fun part1(input: List<String>): Int {
-        input.map {
-            val parts = it.split(",").let {
-                Pair(it[0], it[1])
+
+
+
+    fun getParsed(input: List<String>): List<List<Set<Int>>> {
+        return input.map {
+            it.split(",").map {
+                it.split("-").map(String::toInt).let { (a, b) -> (a..b).toSet() }
             }
-            println(parts)
-
         }
+    }
 
-        return 1
+    fun part1(input: List<String>): Int {
+       val parsed= getParsed(input)
+       return parsed.count { (a, b) -> a.containsAll(b) || b.containsAll(a)}
     }
 
     fun part2(input: List<String>): Int {
+        val parsed= getParsed(input)
 
-        return -1
+        return parsed.count { (a, b) -> a.intersect(b).isNotEmpty()}
     }
+
+
+
 
 
     val input = readInput("Day04")
