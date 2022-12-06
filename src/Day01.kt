@@ -1,3 +1,5 @@
+import kotlin.math.max
+
 fun main() {
     fun part1(input: List<String>): Int {
 
@@ -29,28 +31,16 @@ fun main() {
         var maxCalorie = 0
         var current = 0
         for (s in input) {
-            if (s.equals("")) {
-                maxCalorie = Math.max(maxCalorie, current)
+            if (s.isBlank()) {
+                maxCalorie = max(maxCalorie, current)
                 current = 0
             } else {
                 current += s.toInt()
             }
         }
-        return Math.max(maxCalorie, current)
+        return max(maxCalorie, current)
         //endregion
     }
-
-    //optimised
-    fun part1(input: String): Int {
-        val score = input
-            .split("\n\n")
-            .maxOf {
-                it.split("\n").sumOf(String::toInt)
-            }
-        return score
-    }
-
-
     fun part2(input: List<String>): Int {
         val listCalories = mutableListOf<Int>()
         var current = 0;
@@ -71,16 +61,27 @@ fun main() {
         return ans
     }
 
-    //optimised solution
-//    fun part2(input: String): Int{
-//       val score= input
-//            .split("\n\n")
-//            .map { it.split("\n").sumOf(String::toInt) }
-//            .sorted()
-//            .takeLast(3)
-//            .sum()
-//        return score
-//    }
+
+
+
+    //region Optimised versions
+    fun part1(input: String): Int {
+        return input
+            .split("\n\n")
+            .maxOf {
+                it.split("\n").sumOf(String::toInt)
+            }
+    }
+
+
+    fun part2(input: String): Int{
+       return input
+            .split("\n\n")
+            .map { it.split("\n").sumOf(String::toInt) }
+            .sorted().takeLast(3).sum()
+    }
+
+    //endregion
 
     val input = readInput("Day01")
     val inputString = readInputAsText("Day01")
@@ -89,7 +90,7 @@ fun main() {
     println(part1(inputString))
 
     println(part2(input))
-//    println(part2(inputString))
+    println(part2(inputString))
 
 
 }
