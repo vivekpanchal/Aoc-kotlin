@@ -1,6 +1,6 @@
 fun main() {
 
-    val input = readInput("Day05")
+    val input = readInput("Day06")
     fun String.findUniqueChar(chars:Int)= windowed(chars).indexOfFirst { it.toSet().size==chars }+chars
 
     fun part1(input: List<String>): Int {
